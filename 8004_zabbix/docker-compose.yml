@@ -47,8 +47,7 @@ services:
   zabbix-web-nginx-mysql:
     image: zabbix/zabbix-web-nginx-mysql:alpine-3.4-latest
     ports:
-      - "8081:80"
-      - "8443:443"
+      - 8004:80
     links:
       - mysql-server:mysql-server
       - zabbix-server:zabbix-server

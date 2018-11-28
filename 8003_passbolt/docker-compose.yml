@@ -1,0 +1,44 @@
+# passbolt
+version: '3'
+services:
+
+  passbolt_db:
+    image: docker.io/mariadb:10.3
+    expose:
+      - 3306
+    volumes:
+      - passbolt_storage:/var/lib/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: "passbolt"
+      MYSQL_DATABASE: "passbolt"
+      MYSQL_USER: "passbolt"
+      MYSQL_PASSWORD: "P4ssb0lt"
+
+  passbolt:
+    # alpine container (1.6.9-alpine) is broken
+    image: docker.io/passbolt/passbolt:2.5.0-debian
+    links:
+      - db
+    ports:
+      - 8003:443
+    networks:
+      - default
+    environment:
+      # reference here = https://github.com/passbolt/passbolt_docker
+      APP_FULL_BASE_URL: "https://localhost:8003"
+      DATASOURCES_DEFAULT_HOST: "passbolt_db"
+      DATASOURCES_DEFAULT_DATABASE: "passbolt"
+      DATASOURCES_DEFAULT_USERNAME: "passbolt"
+      DATASOURCES_DEFAULT_PASSWORD: "P4ssb0lt"
+      DATASOURCES_DEFAULT_PORT: "3306"
+      EMAIL_DEFAULT_FROM: "you@localhost"
+      EMAIL_TRANSPORT_DEFAULT_HOST: "mx.localhost"
+      PASSBOLT_REGISTRATION_PUBLIC: "true"
+      PASSBOLT_SSL_FORCE: "true"
+
+networks:
+  default:
+
+volumes:
+  passbolt_storage:
+    driver: local
