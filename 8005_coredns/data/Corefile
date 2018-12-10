@@ -1,0 +1,19 @@
+. {
+    whoami
+    errors
+    cache
+    prometheus localhost:9153
+    log
+
+    forward . tls://1.1.1.1 {
+        tls_servername tls.cloudflare-dns.com
+    }
+}
+
+10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 {
+    whoami
+}
+
+k8s.local {
+    file /data/k8s.zone
+}

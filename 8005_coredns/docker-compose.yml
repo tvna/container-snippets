@@ -1,0 +1,16 @@
+# coredns
+version: '3'
+services:
+
+  coredns:
+    image: docker.io/coredns/coredns:1.2.6
+    command: -conf /data/Corefile
+    ports:
+      - 53:53/udp
+      - 9153:9153
+    volumes:
+      - ./data:/data/:ro
+    restart: always
+
+networks:
+  default:

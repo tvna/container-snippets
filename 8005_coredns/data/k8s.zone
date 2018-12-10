@@ -1,0 +1,14 @@
+$ORIGIN k8s.local.
+$TTL	30
+@	3600 	IN	SOA 	dns.k8s.local. noc.k8s.local. (
+							2018121101 ; serial
+							7200       ; refresh (2 hours)
+							3600       ; retry (1 hour)
+							1209600    ; expire (2 weeks)
+							3600       ; minimum (1 hour)
+						)
+
+			IN	NS 		dns.k8s.local.
+
+*			IN	A     	127.0.0.1
+        	IN	AAAA  	::1
