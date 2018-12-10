@@ -7,7 +7,6 @@ services:
     command: -conf /data/Corefile
     ports:
       - 53:53/udp
-      - 9153:9153
     volumes:
       - ./data:/data/:ro
     restart: always
